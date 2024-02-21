@@ -1,8 +1,8 @@
 '''
-Spaceship class for drawing in Pygame
+Spaceship class for drawing/animating in PyAsteroids
 '''
-__author__ = "Julian C"
-__version__ = "2.13.2024"
+__author__ = "Add your name here"
+__version__ = "Add version date here"
 
 import pygame
 import math
@@ -23,12 +23,14 @@ class Spaceship(pygame.sprite.Sprite):
         self.angle = 0
         self.speed = 0
         self.acceleration = 0
-        self.max_speed = 5
-        self.friction = 0.02  # Adjust this value for desired friction effect
+        self.max_speed = 5      # This can be adjusted to make the ship move faster or slower
+        self.friction = 0.02    # Adjust this value for desired friction effect
 
+    # Draw the spaceship object to the screen
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
+    # update the UI of the spaceship based on its position and angle of rotation
     def update(self):
         # move to the other side of the screen -- x-axis
         if self.rect.x < self.left_boundary:
@@ -43,16 +45,19 @@ class Spaceship(pygame.sprite.Sprite):
 
         # Apply friction or drag force
         self.speed *= (1 - self.friction)
-        # Update position based on speed and angle
+        # Update position based on speed and angle; computers work in radians, not degrees
         angle_radians = math.radians(self.angle)
         self.rect.x += self.speed * math.cos(angle_radians)
         self.rect.y -= self.speed * math.sin(angle_radians)  # Subtract because y-axis is inverted in Pygame
 
+    # Rotate the spaceship image and image rect. To do this, the system must remember the former
+    # position of the rect/image before it can reset the angle of the rect/image
     def rotate(self, angle):
         self.angle += angle
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)
 
+    # Move/accelerate the spaceship, which can be capped
     def move(self, acceleration):
         self.acceleration = acceleration
         # Apply acceleration to speed

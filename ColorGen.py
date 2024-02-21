@@ -1,9 +1,10 @@
-import random
 '''
-Simple class for creating different hues of gray for an Asteroids game
+This is a utility class for creating different hues of gray or random colors for an arcade game
 '''
 __author__ = "Julian Cochran"
-__version__ = "1.0.0"
+__version__ = "02.20.2024"
+
+import random
 
 class ColorGen:
     @staticmethod
